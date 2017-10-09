@@ -20,10 +20,13 @@ namespace Beans._Model
             BankType bankType;
             DataTable dt = new DataTable();
 
-            using (StreamReader sr = new StreamReader(filePath, Encoding.Default))
+            // Using FileStream allows us to read the file while it is still open (because I always forget to close Excel after converting .xls to .csv)
+            FileStream fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+
+            using (StreamReader streamReader = new StreamReader(fileStream, Encoding.Default))
             {
                 // If it's Amex, it starts with a comma and will have a bunch of header guff
-                var firstChar = Convert.ToChar(sr.Peek());
+                var firstChar = Convert.ToChar(streamReader.Peek());
                 if (firstChar == ',')
                 {
                     bankType = BankType.Amex;
@@ -31,11 +34,11 @@ namespace Beans._Model
                     // Skip past the header guff
                     for (int i = 0; i < 20; i++)
                     {
-                        var thisLine = Convert.ToChar(sr.Peek());
+                        var thisLine = Convert.ToChar(streamReader.Peek());
                         if (thisLine == 'D')
                             break;
                         else
-                            sr.ReadLine();
+                            streamReader.ReadLine();
                     }
                 }
                 else
@@ -43,7 +46,7 @@ namespace Beans._Model
                     bankType = BankType.Lloyds;
                 }
 
-                string[] headers = sr.ReadLine().Split(',');
+                string[] headers = streamReader.ReadLine().Split(',');
 
                 // Remove any empty headers (stupid Lloyds)
                 headers = headers.Where(header => !string.IsNullOrEmpty(header)).ToArray<string>();
@@ -53,9 +56,9 @@ namespace Beans._Model
                     dt.Columns.Add(header);
                 }
 
-                while (!sr.EndOfStream)
+                while (!streamReader.EndOfStream)
                 {
-                    string[] rows = System.Text.RegularExpressions.Regex.Split(sr.ReadLine(), ",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
+                    string[] rows = System.Text.RegularExpressions.Regex.Split(streamReader.ReadLine(), ",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
                     DataRow dr = dt.NewRow();
                     for (int i = 0; i < headers.Length; i++)
                     {
