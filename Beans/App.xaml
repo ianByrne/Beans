@@ -1,0 +1,81 @@
+﻿<Application x:Class="Beans.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:Beans"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        
+        <!-- Page Style -->
+        <Style x:Key="pageStyle">
+            <Setter Property="Grid.Background">
+                <Setter.Value>
+                    <ImageBrush ImageSource="Resources/beans.jpg" Stretch="None" AlignmentX="Left" AlignmentY="Bottom" />
+                </Setter.Value>
+            </Setter>
+        </Style>
+        
+        <!-- Header text style -->
+        <Style x:Key="headerTextStyle">
+            <Setter Property="Label.VerticalAlignment" Value="Center"></Setter>
+            <Setter Property="Label.FontFamily" Value="Trebuchet MS"></Setter>
+            <Setter Property="Label.FontWeight" Value="Bold"></Setter>
+            <Setter Property="Label.FontSize" Value="18"></Setter>
+            <Setter Property="Label.Foreground" Value="#0066cc"></Setter>
+        </Style>
+
+        <!-- Loading Image style -->
+        <Style x:Key="loadingImageStyle" TargetType="{x:Type Image}">
+            <Setter Property="Width" Value="20" />
+            <Setter Property="Height" Value="20" />
+            <Setter Property="Stretch" Value="None" />
+            <Setter Property="Margin" Value="5" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+
+        <!-- Nav Buttons style -->
+        <Style x:Key="navButtonStyle" TargetType="{x:Type Button}">
+            <Style.Resources>
+                <Style TargetType="{x:Type Image}">
+                    <Setter Property="Stretch" Value="None" />
+                    <Setter Property="Margin" Value="0" />
+                    <Setter Property="HorizontalAlignment" Value="Center" />
+                    <Setter Property="VerticalAlignment" Value="Center" />
+                </Style>
+            </Style.Resources>
+            
+            <Setter Property="Width" Value="20" />
+            <Setter Property="Height" Value="20" />
+            <Setter Property="Margin" Value="5" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="HorizontalAlignment" Value="Right" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Cursor" Value="Hand" />
+        </Style>
+
+        <!-- DataGrid header style -->
+        <Style x:Key="columnHeaderStyle" TargetType="{x:Type DataGridColumnHeader}">
+            <Setter Property="Height" Value="35" />
+            <Setter Property="Padding" Value="5" />
+            <Setter Property="Background" Value="#4E87D4" />
+            <Setter Property="Foreground" Value="White" />
+        </Style>
+
+        <!-- Content Grid style -->
+        <Style x:Key="contentGridStyle" TargetType="{x:Type Grid}">
+            <Setter Property="VerticalAlignment" Value="Top" />
+            <Setter Property="Margin" Value="5" />
+            <Setter Property="Opacity" Value="0.9" />
+        </Style>
+
+        <!-- Button style -->
+        <Style x:Key="buttonStyle" TargetType="{x:Type Button}">
+            <Setter Property="Width" Value="90" />
+            <Setter Property="Height" Value="25" />
+            <Setter Property="Margin" Value="5" />
+            <Setter Property="HorizontalAlignment" Value="right" />
+            <Setter Property="VerticalAlignment" Value="center" />
+        </Style>
+    </Application.Resources>
+</Application>
